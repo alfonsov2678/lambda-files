@@ -19,6 +19,7 @@ client = boto3.client('lexv2-runtime')
 def lambda_handler(event, context):
     query = event['q']
     
+    print("TESTING CODEPIPELINE")
     # get the utterances from Lex
     send_lex_message = client.recognize_text(
      botAliasId="TSTALIASID",
