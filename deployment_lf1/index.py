@@ -53,8 +53,12 @@ def lambda_handler(event, context):
         s3_object = s3.head_object(Bucket=bucket, Key=key)
         
         timestamp = str(s3_object['LastModified'])
-        customLabels = s3_object['ResponseMetadata']['HTTPHeaders']['x-amz-meta-customlabels']
-        customLabels = customLabels.strip('][').split(', ')
+        
+        try:
+            customLabels = s3_object['ResponseMetadata']['HTTPHeaders']['x-amz-meta-customlabels']
+            customLabels = customLabels.strip('][').split(', ')
+        except Exception as e: 
+            customLabels = []
         
         print(normalLabels)
         print(customLabels)
