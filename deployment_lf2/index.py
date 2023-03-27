@@ -30,6 +30,7 @@ def lambda_handler(event, context):
 
     intent = send_lex_message['sessionState']['intent']
     slots = intent['slots']
+
     try:
         keyWordOneObject = slots['KeyWordOne']
     except Exception as e: 
@@ -47,6 +48,7 @@ def lambda_handler(event, context):
         keyWordList.append(keyWordOneObject['value']['interpretedValue'])
     if keyWordTwoObject is not None:
         keyWordList.append(keyWordTwoObject['value']['interpretedValue'])
+    print(keyWordList)
     
     # SEARCH FOR EACH KEYWORD FOUND
     resultsTotal = []
@@ -54,7 +56,7 @@ def lambda_handler(event, context):
 
     for keyword in keyWordList:
         term = {'labels': keyword}
-        
+            
         results = query_search(keyword)
         
         # generate presigned URLs
