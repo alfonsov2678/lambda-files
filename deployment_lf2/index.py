@@ -6,6 +6,7 @@ from requests_aws4auth import AWS4Auth
 import random
 import urllib.parse
 import logging
+import inflection
 from botocore.exceptions import ClientError
 
 REGION = 'us-east-1'
@@ -46,8 +47,25 @@ def lambda_handler(event, context):
 
     if keyWordOneObject is not None:
         keyWordList.append(keyWordOneObject['value']['interpretedValue'])
+        
+        word = keyWordOneObject['value']['interpretedValue']
+        
+        # append the plural or not plural version
+        if inflection.pluralize(word) != word:
+            keyWordList.append(inflection.pluralize(word))
+        if inflection.singularize(word) != word:
+            keyWordList.append(inflection.singularize(word))
+        
     if keyWordTwoObject is not None:
         keyWordList.append(keyWordTwoObject['value']['interpretedValue'])
+        
+        keyWordTwoObject['value']['interpretedValue']
+        
+        # append the plural or not plural version
+        if inflection.pluralize(word) != word:
+            keyWordList.append(inflection.pluralize(word))
+        if inflection.singularize(word) != word:
+            keyWordList.append(inflection.singularize(word))
     print(keyWordList)
     
     # SEARCH FOR EACH KEYWORD FOUND
