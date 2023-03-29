@@ -59,7 +59,7 @@ def lambda_handler(event, context):
     if keyWordTwoObject is not None:
         keyWordList.append(keyWordTwoObject['value']['interpretedValue'])
         
-        keyWordTwoObject['value']['interpretedValue']
+        word = keyWordTwoObject['value']['interpretedValue']
         
         # append the plural or not plural version
         if inflection.pluralize(word) != word:
