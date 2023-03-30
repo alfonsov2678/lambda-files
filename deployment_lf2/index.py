@@ -18,7 +18,9 @@ client = boto3.client('lexv2-runtime')
 
 
 def lambda_handler(event, context):
-    query = event['q']
+    print(event)
+    print(context)
+    query = event['queryStringParameters']["q"]
     
     # get the utterances from Lex
     send_lex_message = client.recognize_text(
@@ -86,12 +88,11 @@ def lambda_handler(event, context):
     return {
                 'statusCode': 200,
                 'headers': {
-                    'Content-Type': 'application/json',
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': '*',
+                    'Access-Control-Allow-Methods': 'GET, OP',
                 },
-                'results': resultsTotal
+                'body': json.dumps({'results': resultsTotal})
             }
  
 def create_presigned_url(bucket_name, object_name, expiration=3600):
