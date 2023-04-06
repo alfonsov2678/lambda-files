@@ -18,6 +18,7 @@ client = boto3.client('lexv2-runtime')
 
 
 def lambda_handler(event, context):
+    print("LAMBDA DEMO CHANGE")
     print(event)
     print(context)
     query = event['queryStringParameters']["q"]
